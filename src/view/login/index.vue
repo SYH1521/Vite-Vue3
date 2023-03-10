@@ -22,6 +22,8 @@ function handleLogin() {
   loginFromRef.value.validate((valid: boolean) => {
     console.log(state.loginData);
     userStores.login(state.loginData).then(() => {
+      console.log("111");
+
     })
   })
 }
