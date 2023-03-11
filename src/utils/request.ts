@@ -1,4 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios'
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import { ElMessage } from 'element-plus';
 
 const service = axios.create({
   baseURL: import.meta.env.VITE_APP_BASE_API,
@@ -8,17 +9,32 @@ const service = axios.create({
 
 // 请求拦截 
 service.interceptors.request.use((config) => {
-  console.log('config', config);
-
   return config
 }, error => {
   Promise.reject(error)
 })
 // 响应拦截
 
-service.interceptors.request.use(res => {
-  return Promise.resolve(res)
+service.interceptors.response.use((response) => {
+  console.log('response', response);
+  const { code, message } = response.data
+  if (code === 0) {
+    return response
+  } else {
+    ElMessage({
+      message: message || '系统出错',
+      type: 'error'
+    });
+  }
+  return Promise.resolve(response)
 }, error => {
+  const { message } = error.response.data
+  if (message) {
+    ElMessage({
+      message: message || '系统出错',
+      type: 'error'
+    });
+  }
   Promise.reject(error)
 })
 

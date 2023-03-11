@@ -12,17 +12,26 @@ const state = reactive({
     user_name: 'admin',
     password: '123456'
   } as LoginData,
+  loading: false,
 })
 
 const {
   loginData,
+  loading,
 } = toRefs(state);
 
 function handleLogin() {
   loginFromRef.value.validate((valid: boolean) => {
-    console.log(state.loginData);
-    userStores.login(state.loginData).then(() => {
-    })
+    if (valid) {
+      state.loading = true
+      userStores.login(state.loginData).then(() => {
+        state.loading = false
+      }).catch(() => {
+        state.loading = false
+      })
+    } else {
+      return false
+    }
   })
 }
 
@@ -47,7 +56,7 @@ onMounted(() => {
           <el-input placeholder="请输入密码" v-model="loginData.password" type="password" autocomplete="new-password"
             prefix-icon="Lock" show-password />
         </el-form-item>
-        <el-button type="primary" class="login-but" @click.prevent="handleLogin">登录</el-button>
+        <el-button type="primary" class="login-but" :loading="loading" @click.prevent="handleLogin">登录</el-button>
       </el-form>
     </div>
   </div>

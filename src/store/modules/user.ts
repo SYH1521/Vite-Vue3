@@ -18,7 +18,6 @@ export const userStore = defineStore('user', () => {
         ElMessage.success(message)
         resolve()
       }).catch(error => {
-        ElMessage.error(error.response.data.message)
         reject(error)
       })
     })
