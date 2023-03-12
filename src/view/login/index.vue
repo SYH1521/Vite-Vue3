@@ -1,6 +1,7 @@
 <script lang="ts" setup name="Page-login">
 import { initStarry } from '@/api/login/loginBackground'
 import { LoginData } from '@/api/login/types';
+import router from '@/routes';
 import { userStore } from '@/store/modules/user';
 import { ElForm } from 'element-plus';
 
@@ -25,6 +26,7 @@ function handleLogin() {
     if (valid) {
       state.loading = true
       userStores.login(state.loginData).then(() => {
+        router.push({ path: '/' })
         state.loading = false
       }).catch(() => {
         state.loading = false
@@ -34,7 +36,6 @@ function handleLogin() {
     }
   })
 }
-
 
 onMounted(() => {
   initStarry()
@@ -50,11 +51,11 @@ onMounted(() => {
           <el-icon>
             <User />
           </el-icon>
-          <el-input placeholder="请输入账号" v-model="loginData.user_name" prefix-icon="User" />
+          <el-input placeholder="请输入账号" v-model="loginData.user_name" prefix-icon="User" @keyup.enter="handleLogin" />
         </el-form-item>
         <el-form-item label="">
           <el-input placeholder="请输入密码" v-model="loginData.password" type="password" autocomplete="new-password"
-            prefix-icon="Lock" show-password />
+            prefix-icon="Lock" show-password @keyup.enter="handleLogin" />
         </el-form-item>
         <el-button type="primary" class="login-but" :loading="loading" @click.prevent="handleLogin">登录</el-button>
       </el-form>

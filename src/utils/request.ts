@@ -16,7 +16,6 @@ service.interceptors.request.use((config) => {
 // 响应拦截
 
 service.interceptors.response.use((response) => {
-  console.log('response', response);
   const { code, message } = response.data
   if (code === 0) {
     return response
