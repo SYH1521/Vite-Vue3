@@ -29,7 +29,7 @@ const {
 } = toRefs(state);
 
 const initeCharts = () => {
-  let myChart = echarts.init(document.getElementById('myChart'));
+  let myChart = echarts.init(document.getElementById('myChart') as HTMLElement);
   myChart.setOption(state.option);
 }
 

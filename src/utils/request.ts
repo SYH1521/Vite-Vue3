@@ -1,3 +1,5 @@
+import router from '@/routes';
+import { removeUserToken } from '@/store/modules/auto';
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
 import { ElMessage } from 'element-plus';
 
@@ -27,7 +29,24 @@ service.interceptors.response.use((response) => {
   }
   return Promise.resolve(response)
 }, error => {
-  const { message } = error.response.data
+  const { code, message } = error.response.data
+  if (code == 10101) {
+    ElMessageBox.confirm(
+      `${message}请重新登录.`,
+      'Warning',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+    )
+      .then(() => {
+        router.push({ path: '/login' })
+        removeUserToken()
+      })
+      .catch(() => {
+      })
+  }
   if (message) {
     ElMessage({
       message: message || '系统出错',

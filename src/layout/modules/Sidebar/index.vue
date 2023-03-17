@@ -1,3 +1,6 @@
+<script lang="ts" setup name="sidebar">
+
+</script>
 <template>
   <el-menu default-active="2" class="el-menu-vertical-demo" :router="true">
     <el-menu-item index='/dashboard'>

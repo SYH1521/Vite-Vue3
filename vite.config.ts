@@ -44,6 +44,7 @@ export default defineConfig(({ command, mode }) => {
       // 设置代理，根据我们项目实际情况配置
       proxy: {
         [env.VITE_APP_BASE_API]: { //apiTest是自行设置的请求前缀，按照这个来匹配请求，有这个字段的请求，就会进到代理来
+          // target: 'http://43.142.86.18:8000',
           target: 'http://localhost:8000',
           changeOrigin: true, //是否跨域
           rewrite: (path) => path.replace(new RegExp('^' + env.VITE_APP_BASE_API), '') //重写匹配的字段，如果不需要放在请求路径上，可以重写为""
