@@ -21,6 +21,11 @@ let routes: Array<RouteRecordRaw> = [
       name: 'user',
       component: () => import('@/view/user/index.vue'),
       meta: { title: '用户列表', icon: 'homepage', affix: true },
+    },{
+      path: '/schedule',
+      name: 'schedule',
+      component: () => import('@/view/schedule/index.vue'),
+      meta: { title: '日程管理', icon: 'homepage', affix: true },
     }]
   },
   {

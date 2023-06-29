@@ -9,6 +9,12 @@
       </el-icon>
       <span>首页</span>
     </el-menu-item>
+    <el-menu-item index='/schedule'>
+      <el-icon>
+        <House />
+      </el-icon>
+      <span>日程管理</span>
+    </el-menu-item>
     <el-sub-menu index="2">
       <template #title>
         <el-icon>
